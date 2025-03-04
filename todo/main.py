@@ -1,23 +1,11 @@
 from fastapi import FastAPI, Depends, HTTPException
 from pydantic import BaseModel
+from database import get_db
 from typing import Optional
-import mysql.connector
 
 app = FastAPI()
 
-def get_db():
-    connection = mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="123456",
-        database="eps"
-    )
-    cursor = connection.cursor()
-    try:
-        yield cursor
-    finally:
-        cursor.close()
-        connection.close()
+
 
 class TaskScheme(BaseModel):
     id: int
